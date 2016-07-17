@@ -759,6 +759,32 @@ class TestAVTransport:
             ('SortCriteria', '')
         ])
 
+    def test_set_sleep_timer(self, moco):
+        moco.avTransport.reset_mock()
+        moco.avTransport.return_value = True
+        moco.avTransport.ConfigureSleepTimer.return_value = True
+        result = moco.set_sleep_timer('')
+        assert result
+        moco.avTransport.ConfigureSleepTimer.assert_called_once_with(
+            [('InstanceID', 0),
+             ('NewSleepTimerDuration', '')]
+        )
+
+        moco.avTransport.reset_mock()
+        moco.avTransport.return_value = True
+        moco.avTransport.ConfigureSleepTimer.return_value = True
+        result = moco.set_sleep_timer('02:00:00')
+        assert result
+        moco.avTransport.ConfigureSleepTimer.assert_called_once_with(
+            [('InstanceID', 0),
+             ('NewSleepTimerDuration', '02:00:00')]
+        )
+
+    @pytest.mark.parametrize('bad_sleep_time', ['BadTime', '00:43dd:23'])
+    def test_set_sleep_timer_bad_sleep_time(self, moco, bad_sleep_time):
+        with pytest.raises(ValueError):
+            result = moco.set_sleep_timer(bad_sleep_time)
+
 
 class TestContentDirectory:
 
