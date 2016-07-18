@@ -785,10 +785,10 @@ class TestAVTransport:
 
     def test_get_sleep_timer(self, moco):
         moco.avTransport.reset_mock()
-        moco.avTransport.GetRemainingSleepTimerDuration.return_value = [
-            ('RemainingSleepTimerDuration', '02:00:00'),
-            ('CurrentSleepTimerGeneration', '3'),
-        ]
+        moco.avTransport.GetRemainingSleepTimerDuration.return_value = {
+            'RemainingSleepTimerDuration': '02:00:00',
+            'CurrentSleepTimerGeneration': '3',
+        }
         result = moco.get_sleep_timer()
         assert result['RemainingSleepTimerDuration'] == '02:00:00'
         assert result['CurrentSleepTimerGeneration'] == '3'
