@@ -791,7 +791,7 @@ class TestAVTransport:
         ]
         result = moco.get_sleep_timer()
         assert result['RemainingSleepTimerDuration'] == '02:00:00'
-        assert result['CurrentSleepTimerGeneration'] = '3'
+        assert result['CurrentSleepTimerGeneration'] == '3'
 
 
 class TestContentDirectory:
