@@ -1508,9 +1508,9 @@ class SoCo(_SocoSingletonBase):
             incorrect syntax.
 
         """
-        if(sleep_time):
-            if not re.match(r'^[0-9][0-9]?:[0-9][0-9]:[0-9][0-9]$', sleep_time):
-                raise ValueError('invalid timestamp, use HH:MM:SS format')
+        if sleep_time and \
+           not re.match(r'^[0-9][0-9]?:[0-9][0-9]:[0-9][0-9]$', sleep_time):
+            raise ValueError('invalid timestamp, use HH:MM:SS format')
 
         return self.avTransport.ConfigureSleepTimer([
             ('InstanceID', 0),
